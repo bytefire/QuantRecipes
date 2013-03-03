@@ -1,0 +1,5 @@
+D:\Development\QuantRecipes\Source\QuantRecipes\bin\Debug\QuantRecipes.dll
+D:\Development\QuantRecipes\Source\QuantRecipes\bin\Debug\QuantRecipes.pdb
+D:\Development\QuantRecipes\Source\QuantRecipes\obj\Debug\QuantRecipes.csprojResolveAssemblyReference.cache
+D:\Development\QuantRecipes\Source\QuantRecipes\obj\Debug\QuantRecipes.dll
+D:\Development\QuantRecipes\Source\QuantRecipes\obj\Debug\QuantRecipes.pdb
