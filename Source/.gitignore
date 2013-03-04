@@ -1,0 +1,7 @@
+#Ignoring files generated during builds
+*/bin
+*/obj
+#Ignore test results
+TestResults
+#Ignore user preferences files
+*/*.csproj.user
