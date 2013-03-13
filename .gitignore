@@ -1,6 +1,7 @@
 #Ignoring files generated during builds
 */bin
 */obj
+*/*/bin
 #Ignore test results
 TestResults
 #Ignore user preferences files
