@@ -1,0 +1,8 @@
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\bin\Debug\FiniteDifferencesTest.exe.config
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\bin\Debug\FiniteDifferencesTest.exe
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\bin\Debug\FiniteDifferencesTest.pdb
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\bin\Debug\QuantRecipes.dll
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\bin\Debug\QuantRecipes.pdb
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\obj\Debug\FiniteDifferencesTest.csprojResolveAssemblyReference.cache
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\obj\Debug\FiniteDifferencesTest.exe
+D:\Development\QuantRecipes\Tests\FiniteDifferencesTest\obj\Debug\FiniteDifferencesTest.pdb
