@@ -2,7 +2,8 @@
 */bin
 */obj
 */*/bin
+*/*/obj
 #Ignore test results
-TestResults
+Tests
 #Ignore user preferences files
 */*.csproj.user
