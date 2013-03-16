@@ -12,7 +12,10 @@ namespace FiniteDifferencesTest
         static void Main(string[] args)
         {
             FiniteDifferencesEngine engine = new FiniteDifferencesEngine();
-            double[,] optionValues = engine.PriceEuropeanOption(0.6, 0.012, OptionType.Call, 100, 2, 50);
+            // double[,] optionValues = engine.PriceEuropeanOption(0.6, 0.012, OptionType.Call, 100, 2, 50);
+            // double[,] optionValues = engine.PriceAmericanOption(0.2, 0.05, OptionType.Put, 100, 1, false, 20);
+            double[,] optionValues = engine.PriceAmericanOption2d(0.2, 0.05, OptionType.Call, 100, 1, true, 40);
+            // double[,] optionValues = engine.PriceEuropeanOption(0.2, 0.05, OptionType.Put, 100, 1, 20);
             Print2DArray(optionValues);
             Console.WriteLine("Press any key to exit...");
             Console.ReadLine();

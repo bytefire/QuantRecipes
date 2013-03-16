@@ -62,5 +62,147 @@ namespace QuantRecipes
             }
             return optionValues;
         }
+
+        // Prices American calls and puts using Explicit Finite Difference method.
+        // NOTE that if isEarlyExercise is set to false, this method will produce output same as 
+        // European option.
+        public double[,] PriceAmericanOption(double volatility, double interestRate, OptionType optionType,
+            double strike, double timeToExpiration, bool isEarlyExercise, int numberOfAssetSteps)
+        {
+            double[] assetPrices = new double[numberOfAssetSteps + 1];
+            double[] payoffs = new double[numberOfAssetSteps + 1];
+
+            double assetStep = 2 * strike / numberOfAssetSteps;
+            // for stability...
+            double timeStep = 0.9 / (volatility * volatility) / (numberOfAssetSteps * numberOfAssetSteps);
+            int numberOfTimeSteps = (int)(timeToExpiration / timeStep) + 1;
+            // to make sure that expiration falls a whole-number of steps away..
+            timeStep = timeToExpiration / numberOfTimeSteps;
+
+            double[,] optionValues = new double[numberOfAssetSteps + 1, numberOfTimeSteps + 1];
+
+            for (int i = 0; i <= numberOfAssetSteps; i++)
+            {
+                assetPrices[i] = i * assetStep;
+                optionValues[i, 0] = Math.Max((int)optionType * (assetPrices[i] - strike), 0);
+                payoffs[i] = optionValues[i, 0];
+            }
+
+            double delta, gamma, theta;
+            for (int k = 1; k <= numberOfTimeSteps; k++)
+            {
+                for (int i = 1; i < numberOfAssetSteps; i++)
+                {
+                    // delta using central difference.
+                    delta = (optionValues[i + 1, k - 1] - optionValues[i - 1, k - 1]) / 2 / assetStep;
+                    // gamma using central difference.
+                    gamma = (optionValues[i + 1, k - 1] - 2 * optionValues[i, k - 1] + optionValues[i - 1, k - 1]) / assetStep / assetStep;
+                    // theta using Black-Scholes formula
+                    theta = -0.5 * volatility * volatility * assetPrices[i] * assetPrices[i] * gamma -
+                        interestRate * assetPrices[i] * delta + interestRate * optionValues[i, k - 1];
+                    optionValues[i, k] = optionValues[i, k - 1] - timeStep * theta;
+                }
+                // boundary condition at asset price = 0.
+                optionValues[0, k] = optionValues[0, k - 1] * (1 - interestRate * timeStep);
+                // boundary condition at asset price = infinity.
+                optionValues[numberOfAssetSteps, k] = 2 * optionValues[numberOfAssetSteps - 1, k] - optionValues[numberOfAssetSteps - 2, k];
+
+                if (isEarlyExercise)
+                {
+                    for (int i = 0; i <= numberOfAssetSteps; i++)
+                    {
+                        optionValues[i, k] = Math.Max(optionValues[i, k], payoffs[i]);
+                    }
+                }
+            }
+            return optionValues;
+        }
+
+        // Similar to the method above which prices American options except that this doesn't output the whole 
+        // option values matrix. It just returns values for the curve today. Plus it returns the greeks as well.
+        // Returns a 2d array with following columns for today's date: Asset Price, Payoff, Option Values, Delta, Gamma, Theta
+        // NOTE: same as its 3d equivalent, this method prices a European option if isEarlyExercise is set to false.
+        public double[,] PriceAmericanOption2d(double volatility, double interestRate, OptionType optionType,
+            double strike, double timeToExpiration, bool isEarlyExercise, int numberOfAssetSteps)
+        {
+            double[] assetPrices = new double[numberOfAssetSteps + 1];
+            double[] optionValuesOld = new double[numberOfAssetSteps + 1];
+            double[] optionValuesNew = new double[numberOfAssetSteps + 1];
+            double[] payoffs = new double[numberOfAssetSteps + 1];
+            double[,] returnMatrix = new double[numberOfAssetSteps + 1, 6];
+
+            double assetStep = 2 * strike / numberOfAssetSteps;
+            // for algorithmic stability...
+            double timeStep = 0.9 / (volatility * volatility) / (numberOfAssetSteps * numberOfAssetSteps);
+            int numberOfTimeSteps = (int)(timeToExpiration / timeStep) + 1;
+            timeStep = timeToExpiration / numberOfTimeSteps;
+
+            for (int i = 0; i <= numberOfAssetSteps; i++)
+            {
+                assetPrices[i] = i * assetStep;
+                optionValuesOld[i] = Math.Max((int)optionType * (assetPrices[i] - strike), 0);
+                payoffs[i] = optionValuesOld[i];
+                // first column to store asset prices.
+                returnMatrix[i, 0] = assetPrices[i];
+                // second column for payoffs.
+                returnMatrix[i, 1] = payoffs[i];
+            }
+
+            double delta, gamma, theta;
+            for (int k = 1; k <= numberOfTimeSteps; k++)
+            {
+                for (int i = 1; i < numberOfAssetSteps; i++)
+                {
+                    // delta using central difference.
+                    delta = (optionValuesOld[i + 1] - optionValuesOld[i - 1]) / 2 / assetStep;
+                    // gamma using central difference
+                    gamma = (optionValuesOld[i + 1] - 2 * optionValuesOld[i] + optionValuesOld[i - 1]) / assetStep / assetStep;
+                    // theta using the Black-Scholes equation
+                    theta = -0.5 * volatility * volatility * assetPrices[i] * assetPrices[i] * gamma -
+                        interestRate * assetPrices[i] * delta + interestRate * optionValuesOld[i];
+                    optionValuesNew[i] = optionValuesOld[i] - timeStep * theta;
+                }
+                // boundary condition when asset price = 0
+                optionValuesNew[0] = optionValuesOld[0] * (1 - interestRate * timeStep);
+                // boundary condition when asset price = infinity
+                optionValuesNew[numberOfAssetSteps] = 2 * optionValuesNew[numberOfAssetSteps - 1] - optionValuesNew[numberOfAssetSteps - 2];
+                // old values become new values...
+                optionValuesNew.CopyTo(optionValuesOld, 0);
+
+                if (isEarlyExercise)
+                {
+                    for (int i = 0; i <= numberOfAssetSteps; i++)
+                    {
+                        optionValuesOld[i] = Math.Max(optionValuesOld[i], payoffs[i]);
+                    }
+                }
+            }
+
+            for (int i = 1; i < numberOfAssetSteps; i++)
+            {
+                // column 3 for option values
+                returnMatrix[i, 2] = optionValuesOld[i];
+                // column 4 for delta - using central difference
+                returnMatrix[i, 3] = (optionValuesOld[i + 1] - optionValuesOld[i - 1]) / 2 / assetStep;
+                // column 5 for gamma - using central difference
+                returnMatrix[i, 4] = (optionValuesOld[i + 1] - 2 * optionValuesOld[i] + optionValuesOld[i - 1]) / assetStep / assetStep;
+                // column 6 for theta - using Black-Scholes
+                returnMatrix[i, 5] = -0.5 * volatility * volatility * assetPrices[i] * assetPrices[i] * returnMatrix[i, 4] -
+                    interestRate * assetPrices[i] * returnMatrix[i, 3] + interestRate * optionValuesOld[i];
+            }
+
+            returnMatrix[0, 2] = optionValuesOld[0];
+            returnMatrix[numberOfAssetSteps, 3] = optionValuesOld[numberOfAssetSteps];
+            // separate treatment of endpoints for delta, gamma and theta
+            returnMatrix[0, 3] = (optionValuesOld[1] - optionValuesOld[0]) / assetStep;
+            returnMatrix[numberOfAssetSteps, 3] = (optionValuesOld[numberOfAssetSteps] - optionValuesOld[numberOfAssetSteps - 1]) / assetStep;
+            returnMatrix[0, 4] = 0;
+            returnMatrix[numberOfAssetSteps, 4] = 0;
+            returnMatrix[0, 5] = interestRate * optionValuesOld[0];
+            returnMatrix[numberOfAssetSteps, 5] = -0.5 * volatility * volatility * assetPrices[numberOfAssetSteps] * assetPrices[numberOfAssetSteps] * returnMatrix[numberOfAssetSteps, 4] -
+                interestRate * assetPrices[numberOfAssetSteps] * returnMatrix[numberOfAssetSteps, 3] + interestRate * optionValuesOld[numberOfAssetSteps];
+
+            return returnMatrix;
+        }
     }
 }

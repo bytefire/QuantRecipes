@@ -2,6 +2,6 @@
 bin/
 obj/
 #Ignore test results
-##TestsResults
+Tests
 #Ignore user preferences files
 */*.csproj.user
