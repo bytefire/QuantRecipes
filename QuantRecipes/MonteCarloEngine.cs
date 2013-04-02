@@ -13,7 +13,7 @@ namespace QuantRecipes
         public double PriceEuropeanOption(double startingAssetValue, double interestRate, OptionType optionType, double strike,
             double volatility, double timeStep, int numberOfTimeSteps)
         {
-            int numberOfSimulations = 50;
+            int numberOfSimulations = 250;
             object syncLock = new object();
             double sumOfFutureValuesOfOption = 0.0;
             Parallel.For(0, numberOfSimulations, simulationNumber =>
@@ -26,8 +26,9 @@ namespace QuantRecipes
                     }
                     futureValueOfOption = Math.Max((int)optionType * (currentAssetValue - strike), 0);
                     // lock to ensure that each addition is atomic.
-                    // TODO: this is a bottleneck and overhead of locking not only
+                    // TODO: this is a bottleneck as locking not only
                     //      makes this loop linear but slows it down even more due to locking overhead.
+                    //      *Potential Race Condition too!*
                     lock (syncLock)
                     {
                         sumOfFutureValuesOfOption += futureValueOfOption;

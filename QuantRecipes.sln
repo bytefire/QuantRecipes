@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilitiesTest", "Tests\Util
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonteCarloTest", "Tests\MonteCarloTest\MonteCarloTest.csproj", "{7163472F-8DF8-4714-8AD0-2495A4ACDDBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantRecipes.Library", "QuantRecipes.Library\QuantRecipes.Library.csproj", "{F488BF8C-4265-4E8C-89DE-30C46BD5E922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantRecipes.Utilities", "QuantRecipes.Utilities\QuantRecipes.Utilities.csproj", "{B67934C0-955C-4CC9-9F3D-5482A1A014DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{7163472F-8DF8-4714-8AD0-2495A4ACDDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7163472F-8DF8-4714-8AD0-2495A4ACDDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7163472F-8DF8-4714-8AD0-2495A4ACDDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F488BF8C-4265-4E8C-89DE-30C46BD5E922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F488BF8C-4265-4E8C-89DE-30C46BD5E922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F488BF8C-4265-4E8C-89DE-30C46BD5E922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F488BF8C-4265-4E8C-89DE-30C46BD5E922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B67934C0-955C-4CC9-9F3D-5482A1A014DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B67934C0-955C-4CC9-9F3D-5482A1A014DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B67934C0-955C-4CC9-9F3D-5482A1A014DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B67934C0-955C-4CC9-9F3D-5482A1A014DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
