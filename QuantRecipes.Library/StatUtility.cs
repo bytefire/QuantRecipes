@@ -72,5 +72,51 @@ namespace QuantRecipes.Library
             double normalPdf = (1 / (Math.Sqrt(2 * Math.PI) * standardDeviation)) * Math.Exp(-0.5 * xMinusMuUponSigma * xMinusMuUponSigma);
             return normalPdf;
         }
+        /// <summary>
+        /// Computes d1 of the Black-Scholes equation.
+        /// </summary>
+        /// <param name="price">stock price</param>
+        /// <param name="strike">strike price</param>
+        /// <param name="rate">interest rate</param>
+        /// <param name="dividend">dividend yield</param>
+        /// <param name="volatility">volatility, i.e. standard deviation of stock price</param>
+        /// <param name="timeToMaturity">time remaining to option maturity date</param>
+        /// <returns>D1</returns>
+        public double GetD1(double price, double strike, double rate, double dividend, double volatility, double timeToMaturity)
+        {
+            double d1;
+            d1 = (Math.Log(price / strike) + (rate - dividend + (volatility * volatility / 2)) * timeToMaturity) /
+                (volatility * Math.Sqrt(timeToMaturity));
+            return d1;
+        }
+        /// <summary>
+        /// Computes d2 of the Black-Scholes equation.
+        /// </summary>
+        /// <param name="price">stock price</param>
+        /// <param name="strike">strike price</param>
+        /// <param name="rate">interest rate</param>
+        /// <param name="dividend">dividend yield</param>
+        /// <param name="volatility">volatility, i.e. standard deviation of stock price</param>
+        /// <param name="timeToMaturity">time remaining to option maturity date</param>
+        /// <returns>D2</returns>
+        public double GetD2(double price, double strike, double rate, double dividend, double volatility, double timeToMaturity)
+        {
+            double d1 = GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
+            double d2 = GetD2(d1, volatility, timeToMaturity);
+            return d2;
+        }
+        /// <summary>
+        /// Computes d2 of the Black-Scholes equation.
+        /// </summary>
+        /// <param name="d1">D1</param>
+        /// <param name="volatility">volatility, i.e. standard deviation of stock price</param>
+        /// <param name="timeToMaturity">time remaining to option maturity date</param>
+        /// <returns>d2</returns>
+        public double GetD2(double d1, double volatility, double timeToMaturity)
+        {
+            double d2 = d1 - volatility * Math.Sqrt(timeToMaturity);
+            return d2;
+        }
+        
     }
 }

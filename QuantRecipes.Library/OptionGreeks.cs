@@ -27,7 +27,7 @@ namespace QuantRecipes.Library
             double dividend, double volatility, double timeToMaturity)
         {
             double d1, vega, normalPrime;
-            d1 = GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
+            d1 = _util.GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
             normalPrime = _util.CalculateStandardNormalProbability(d1);
             vega = (normalPrime * Math.Exp(-dividend * timeToMaturity)) * price * Math.Sqrt(timeToMaturity);
             return vega;
@@ -48,7 +48,7 @@ namespace QuantRecipes.Library
         {
             double d1, delta;
 
-            d1 = GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
+            d1 = _util.GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
 
             if (type == OptionType.Call)
             {
@@ -77,7 +77,7 @@ namespace QuantRecipes.Library
             double dividend, double volatility, double timeToMaturity)
         {
             double d1, gamma, normalPrime;
-            d1 = GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
+            d1 = _util.GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
             normalPrime = _util.CalculateStandardNormalProbability(d1);
             gamma = (normalPrime * Math.Exp(-dividend * timeToMaturity)) /
                 price * volatility * Math.Sqrt(timeToMaturity);
@@ -97,7 +97,7 @@ namespace QuantRecipes.Library
         public double CalculateRho(double price, double strike, double rate,
             double dividend, double volatility, double timeToMaturity, OptionType type)
         {
-            double d1 = GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
+            double d1 = _util.GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
             double d2 = d1 - volatility * Math.Sqrt(timeToMaturity);
             double rho = 0.0;
 
@@ -126,7 +126,7 @@ namespace QuantRecipes.Library
         public double CalculateTheta(double price, double strike, double rate,
             double dividend, double volatility, double timeToMaturity, OptionType type)
         {
-            double d1 = GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
+            double d1 = _util.GetD1(price, strike, rate, dividend, volatility, timeToMaturity);
             double d2 = d1 - volatility * Math.Sqrt(timeToMaturity);
             double theta = 0.0;
 
@@ -145,12 +145,6 @@ namespace QuantRecipes.Library
             return theta;
         }
 
-        private double GetD1(double price, double strike, double rate, double dividend, double volatility, double timeToMaturity)
-        {
-            double d1;
-            d1 = (Math.Log(price / strike) + (rate - dividend + (volatility * volatility / 2)) * timeToMaturity) /
-                (volatility * Math.Sqrt(timeToMaturity));
-            return d1;
-        }
+        
     }
 }

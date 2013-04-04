@@ -39,11 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlackScholesOption.cs" />
     <Compile Include="BlackScholesProcess.cs" />
     <Compile Include="DiffusionProcess.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="ImpliedVolHelper.cs" />
     <Compile Include="Instrument.cs" />
     <Compile Include="MatrixUtil.cs" />
+    <Compile Include="ObjectiveFunction.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="OptionGreeks.cs" />
     <Compile Include="OptionValue.cs" />
@@ -53,6 +56,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SquareRootProcess.cs" />
     <Compile Include="StatUtility.cs" />
+    <Compile Include="TermStructure.cs" />
+    <Compile Include="VanillaOption.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuantRecipes.Utilities\QuantRecipes.Utilities.csproj">
