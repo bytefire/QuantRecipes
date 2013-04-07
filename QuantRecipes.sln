@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantRecipes.Utilities", "Q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackScholesTest", "Tests\BlackScholesTest\BlackScholesTest.csproj", "{8C5DB826-F623-4D2D-A46D-1B831F81B03D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newmat", "Newmat\Newmat.csproj", "{D9F64E89-B494-4121-9CCB-663ABCFA0AB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8C5DB826-F623-4D2D-A46D-1B831F81B03D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C5DB826-F623-4D2D-A46D-1B831F81B03D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5DB826-F623-4D2D-A46D-1B831F81B03D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F64E89-B494-4121-9CCB-663ABCFA0AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F64E89-B494-4121-9CCB-663ABCFA0AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F64E89-B494-4121-9CCB-663ABCFA0AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F64E89-B494-4121-9CCB-663ABCFA0AB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

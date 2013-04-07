@@ -117,6 +117,13 @@ namespace QuantRecipes.Library
             double d2 = d1 - volatility * Math.Sqrt(timeToMaturity);
             return d2;
         }
+
+
+        // OkashTODO: this is supposed to generate normal deviate... didnt get time to check, so see how to name it etc.
+        public double gasdev(ref long idum)
+        {
+            throw new NotImplementedException();
+        }
         
     }
 }
