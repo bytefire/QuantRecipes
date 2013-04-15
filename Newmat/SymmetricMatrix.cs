@@ -7,30 +7,34 @@ using System.Threading.Tasks;
 namespace Newmat
 {
     // OkashTODO: add implementation as you go...
-    public class SymmetricMatrix
+    public class SymmetricMatrix<T>:GeneralMatrix<T>
     {
+        public SymmetricMatrix(int rows, int columns)
+            : base(rows, columns)
+        {
+        }
         // OkashTODO: candidate to go in a base class
         public int GetNumberOfRows()
         {
-            throw new NotImplementedException();
+            return _store.GetLength(0);
         }
         // OkashTODO: candidate to go in a base class
         public int GetNumberOfColumns()
         {
-            throw new NotImplementedException();
+            return _store.GetLength(1);
         }
 
-        public DiagonalMatrix GetEigenValues()
+        public DiagonalMatrix<T> GetEigenValues()
         {
             throw new NotImplementedException();
         }
-        public Matrix GetEigenValues(DiagonalMatrix diagonalMatrix)
+        public Matrix<T> GetEigenValues(DiagonalMatrix<T> diagonalMatrix)
         {
             // OkashTODO: does this need DiagonalMatrix argument?
             throw new NotImplementedException();
         }
 
-        public Matrix Cholesky()
+        public Matrix<T> Cholesky()
         {
             throw new NotImplementedException();
         }

@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 namespace Newmat
 {
     // OkashTODO: add implementation as you go...
-    public class DiagonalMatrix
+    public class DiagonalMatrix<T>:GeneralMatrix<T>
     {
-        public DiagonalMatrix(int numberOfRows)
+        public DiagonalMatrix(int rows)
+            : base(rows, rows)
         {
-            throw new NotFiniteNumberException();
         }
 
-        // OkashTODO: candidate for a base class
-        public double GetElement(int row, int column)
+        // NOTE: for some reason the GetElement metod is not in the base GeneralMatrix class in the original Newmat library.
+        //       so in keeping with the original, the GetElement methods have been written separately in 
+        //       each of the derived classes.
+        public T GetElement(int row, int column)
         {
-            throw new NotImplementedException();
+            return _store[row, column];
         }
     }
 }

@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseMatrix.cs" />
     <Compile Include="DiagonalMatrix.cs" />
+    <Compile Include="GeneralMatrix.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="SymmetricMatrix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
